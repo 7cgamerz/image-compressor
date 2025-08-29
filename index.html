@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor Tool</title>
+    <link rel="stylesheet" href="styles.css" />
+   </head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Image Compressor Tool</h1>
+            <p class="description">Reduce image file size without losing quality. Supports JPG, PNG, GIF and WebP formats.</p>
+            
+            <div class="format-badges">
+                <div class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <path d="M21 15l-5-5L5 21"></path>
+                    </svg>
+                    JPG
+                </div>
+                <div class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 5v14"></path>
+                    </svg>
+                    PNG
+                </div>
+                <div class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <path d="M8 12h8"></path>
+                        <path d="M8 8h8"></path>
+                        <path d="M8 16h8"></path>
+                    </svg>
+                    GIF
+                </div>
+                <div class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20"></path>
+                        <path d="M2 12h20"></path>
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    WebP
+                </div>
+            </div>
+        </div>
+        
+        <div class="upload-container" id="drop-zone">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p class="upload-text">Drag & drop images here or click to browse</p>
+            <input type="file" id="file-input" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp">
+            <label for="file-input" class="file-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14"></path>
+                    <path d="M5 12h14"></path>
+                </svg>
+                Select Images
+            </label>
+            <p id="selected-file" class="selected-file">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                <span id="file-count">No files selected</span>
+            </p>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 8v8"></path>
+                        <path d="M8 12h8"></path>
+                    </svg>
+                    <h3>Compression Level</h3>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="quality-slider" min="0" max="100" value="80">
+                    <span class="slider-value" id="quality-value">80%</span>
+                </div>
+                <small>Higher values mean better quality but larger file size</small>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <path d="M14 2v6h6"></path>
+                        <path d="M8 13h8"></path>
+                        <path d="M8 17h8"></path>
+                        <path d="M8 9h1"></path>
+                    </svg>
+                    <h3>Output Format</h3>
+                </div>
+                <label for="format-select">Select output format</label>
+                <select id="format-select">
+                    <option value="original">Same as original</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="png">PNG</option>
+                    <option value="webp">WebP (Recommended)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <h3>Resize Image</h3>
+                </div>
+                <label for="resize-checkbox">Resize image dimensions</label>
+                <input type="checkbox" id="resize-checkbox">
+                <div id="resize-options" style="display: none; margin-top: 15px;">
+                    <label for="max-width">Max Width (px)</label>
+                    <input type="number" id="max-width" min="100" max="4000" value="1200">
+                    <label for="max-height" style="margin-top: 10px;">Max Height (px)</label>
+                    <input type="number" id="max-height" min="100" max="4000" value="1200">
+                </div>
+            </div>
+        </div>
+        
+        <div class="comparison">
+            <div class="comparison-item">
+                <div class="comparison-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span class="comparison-title">Original Image</span>
+                </div>
+                <div class="image-preview" id="original-preview">
+                    <div class="empty-state" style="padding: 20px;">
+                        <div class="empty-icon">📷</div>
+                        <p class="empty-text">No image</p>
+                    </div>
+                </div>
+                <div class="file-info">
+                    <span>Format: <span id="original-format">-</span></span>
+                    <span>Size: <span id="original-size">-</span></span>
+                </div>
+            </div>
+            
+            <div class="comparison-item">
+                <div class="comparison-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="comparison-title">Compressed Image</span>
+                </div>
+                <div class="image-preview" id="compressed-preview">
+                    <div class="empty-state" style="padding: 20px;">
+                        <div class="empty-icon">⚡</div>
+                        <p class="empty-text">Compressed version</p>
+                    </div>
+                </div>
+                <div class="file-info">
+                    <span>Format: <span id="compressed-format">-</span></span>
+                    <span>Size: <span id="compressed-size">-</span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button id="compress-btn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"></path>
+                </svg>
+                Compress Image
+            </button>
+            <button id="download-btn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download Compressed
+            </button>
+            <button id="reset-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                </svg>
+                Reset All
+            </button>
+        </div>
+        
+        <div class="status" id="status">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span id="status-text">Ready to compress. Select an image to begin.</span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    </body>
+    </html>
